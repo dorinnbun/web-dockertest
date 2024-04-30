@@ -1,6 +1,7 @@
-FROM nginx:1.25.5-alpine
-WORKDIR /usr/share/nginx/html
-RUN rm -rf *
-COPY ./website .
-EXPOSE 80
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+FROM node:18-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY ..
+EXPOSE 7000
+CMD ["node", "index.js"]
